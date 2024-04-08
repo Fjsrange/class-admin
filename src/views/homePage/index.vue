@@ -1,23 +1,21 @@
 <template>
-  <div>123
-
+  <div>{{ msg }}
     <el-button type="success" @click="handleBtn">按钮</el-button>
-
   </div>
 </template>
 
 <script>
 export default {
-  name: "teachManage",
+  name: "homePage",
   data() {
     return {
-      msg: 'asdasdasdasdsadasdasdas'
-    }
+      msg: "hello",
+    };
   },
   methods: {
     handleBtn() {
-      if (this.$router) {
-        this.$router.push('/')
+      if (this.$route) {
+        this.$router.push('teachManage')
       }
     },
   },

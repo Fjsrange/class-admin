@@ -1,6 +1,15 @@
 # class-admin
 <<<<<<< HEAD
 
+## 介绍
+基于vue2.0 + element-ui 构建的后台管理系统
+
+## 技术栈
+vue2.0 + vuex + vue-router + axios + element-ui
+
+## 组件相关
+使用require.context()方法动态注册全局组件
+
 ## Project setup
 ```
 npm install

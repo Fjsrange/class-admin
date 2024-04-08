@@ -1,16 +1,22 @@
 <template>
-  <div>{{ msg }}</div>
+  <div class="">
+
+  </div>
 </template>
 
 <script>
 export default {
-  name: "home-index",
+  name: '',
+  components: {},
   data() {
     return {
-      msg: "hello",
-    };
+
+    }
   },
-};
+  methods: {
+
+  },
+}
 </script>
 
 <style scoped></style>
