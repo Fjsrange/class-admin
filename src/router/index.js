@@ -1,21 +1,142 @@
 import Vue from "vue";
 import Router from "vue-router";
+import Layout from "@/layout";
 
 Vue.use(Router);
 
 const routes = [
   {
+    path: "/login",
+    name: "login",
+    component: () => import("@/views/login/index"),
+    meta: { title: "登录" },
+  },
+  {
     path: "/",
-    name: "homePagePage",
-    component: () => import("@/views/homePage"),
-    meta: { title: "首页", menuOrder: 1 },
+    // name: Layout,
+    component: Layout,
+    redirect: "/dashboard",
+    meta: { title: "首页", icon: "el-icon-s-home" },
+    // component: () => import("@/layout/index"),
+    children: [
+      {
+        path: "dashboard",
+        name: "Dashboard",
+        component: () => import("@/views/dashboard"),
+        meta: { title: "首页", icon: "el-icon-s-home" },
+      },
+    ],
+  },
+  {
+    path: "/teachManage",
+    component: Layout,
+    name: "TeachManage",
+    meta: { title: "教学管理", icon: "el-icon-s-goods" },
+    children: [
+      {
+        path: "/course",
+        name: "Course",
+        component: () => import("@/views/teachManage/course"),
+        meta: { title: "课程" },
+      },
+      {
+        path: "/questionBank",
+        name: "QuestionBank",
+        component: () => import("@/views/teachManage/questionBank"),
+        meta: { title: "题库" },
+      },
+      {
+        path: "/answering",
+        name: "Answering",
+        component: () => import("@/views/teachManage/answering"),
+        meta: { title: "答疑" },
+      },
+      {
+        path: "/courseCategory",
+        name: "courseCategory",
+        component: () => import("@/views/teachManage/courseCategory"),
+        meta: { title: "课程分类" },
+      },
+      {
+        path: "/subjectCategory",
+        name: "subjectCategory",
+        component: () => import("@/views/teachManage/subjectCategory"),
+        meta: { title: "题目类型" },
+      },
+      {
+        path: "/test",
+        name: "test",
+        component: () => import("@/views/teachManage/test"),
+        meta: { title: "测试" },
+      },
+      {
+        path: "/live",
+        name: "live",
+        component: () => import("@/views/teachManage/live"),
+        meta: { title: "直播" },
+      },
+      {
+        path: "/video",
+        name: "video",
+        component: () => import("@/views/teachManage/video"),
+        meta: { title: "视频管理" },
+      },
+    ],
+  },
+  // {
+  //   path: "/",
+  //   component: Layout,
+  //   redirect: "/",
+  //   children: [
+  //     {
+  //       path: "/",
+  //       name: "home",
+  //       component: () => import("@/views/index"),
+  //       meta: { title: "首页", icon: "el-icon-s-home" },
+  //     },
+  //   ],
+  // },
+  // {
+  //   path: "/teachManage",
+  //   name: "teachManage",
+  //   meta: { title: "教学管理" },
+  //   children: [
+  //     {
+  //       path: "/course",
+  //       name: "courseIndex",
+  //       component: () => import("@/views/teachManage/course"),
+  //       meta: { title: "课程" },
+  //     },
+  //   ],
+  // },
+  /* {
+    path: "/",
+    name: "homeIndex",
+    component: () => import("@/views/index"),
+    meta: { title: "首页" },
+    children: [
+      {
+        path: "/",
+        name: "dashboardHome",
+        component: () => import("@/views/dashboard"),
+        meta: { title: "首页", icon: "el-icon-s-home" },
+      },
+    ],
   },
   {
     path: "/teachManage",
     name: "teachManage",
-    component: () => import("@/views/teachManage"),
-    meta: { title: "教学管理", menuOrder: 2 },
+    meta: { title: "教学管理" },
+    children: [
+      {
+        path: "/course",
+        name: "courseIndex",
+        component: () => import("@/views/teachManage/course"),
+        meta: { title: "课程" },
+      },
+    ],
   },
+   */
 ];
 
 /* 

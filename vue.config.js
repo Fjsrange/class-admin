@@ -5,4 +5,5 @@ module.exports = defineConfig({
     // 配置开发服务器
     https: true, // 启用 HTTPS
   },
+  lintOnSave: false,
 });
