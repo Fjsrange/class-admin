@@ -9,15 +9,19 @@ const routes = [
     path: "/login",
     name: "login",
     component: () => import("@/views/login/index"),
-    meta: { title: "登录" },
+    hidden: true, // 表示不会在菜单中显示
+  },
+
+  {
+    path: "/404",
+    component: () => import("@/views/404"),
+    hidden: true,
   },
   {
     path: "/",
-    // name: Layout,
     component: Layout,
     redirect: "/dashboard",
     meta: { title: "首页", icon: "el-icon-s-home" },
-    // component: () => import("@/layout/index"),
     children: [
       {
         path: "dashboard",

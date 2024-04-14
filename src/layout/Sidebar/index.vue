@@ -1,26 +1,49 @@
 <template>
   <el-container>
     <el-aside width="100" class="aside">
-      <el-menu :default-active="'/' || activeIndex" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose"
-        :collapse="isCollapse">
+      <el-menu
+        :default-active="'/' || activeIndex"
+        class="el-menu-vertical-demo"
+        @open="handleOpen"
+        @close="handleClose"
+        :collapse="isCollapse"
+      >
         <el-menu-item>
-          <img src="../../assets/logo.png" width="34px" v-if="isCollapse" style="margin-left: -5px;">
+          <img
+            src="../../assets/logo.png"
+            width="34px"
+            v-if="isCollapse"
+            style="margin-left: -5px"
+          />
           <span slot="title" class="logo">ZHIJIAO · 云课堂</span>
         </el-menu-item>
         <!-- <el-submenu index="/"> -->
-        <el-menu-item index="/" @click="navTo('/')">
+        <!-- <el-menu-item index="/" @click="navTo('/')">
           <i :class="icon" style="color: #bfcbd9" aria-hidden="true"></i>
           <span slot="title"> {{ title }}</span>
-        </el-menu-item>
+        </el-menu-item> -->
 
         <el-submenu index="2">
           <template slot="title">
-            <i :class="icon" style="color: #bfcbd9" aria-hidden="true"></i>
-            <span>教学管理</span>
+            <el-menu-item
+              v-for="item in auth"
+              :key="item.id"
+              :index="pageUrl || '/'"
+              @click="navTo('/')"
+            >
+              <i
+                :class="item.icon"
+                style="color: #bfcbd9"
+                aria-hidden="true"
+              ></i>
+              <span>{{ item.title }}</span>
+            </el-menu-item>
           </template>
 
           <el-menu-item-group>
-            <el-menu-item index="2-1" @click="navTo('/course')">课程</el-menu-item>
+            <el-menu-item index="2-1" @click="navTo('/course')"
+              >课程</el-menu-item
+            >
             <el-menu-item index="2-2">题库</el-menu-item>
             <el-menu-item index="2-3">答疑</el-menu-item>
             <el-menu-item index="2-4">课程分类</el-menu-item>
@@ -38,7 +61,12 @@
           <i class="el-icon-setting"></i>
           <span slot="title">导航四</span>
         </el-menu-item>
-        <div v-for="route in routes" :key="route.path" :item="route" :base-path="route.path" />
+        <div
+          v-for="route in routes"
+          :key="route.path"
+          :item="route"
+          :base-path="route.path"
+        />
       </el-menu>
     </el-aside>
   </el-container>
@@ -46,24 +74,29 @@
 
 <script>
 export default {
-  name: 'Sidebar',
+  name: "Sidebar",
   components: {},
   data() {
     return {
       isCollapse: false,
-      title: '',
-      icon: '',
-      activeIndex: '0-0',
+      title: "",
+      icon: "",
+      activeIndex: "0-0",
       routers: [],
       menuItem: [],
-    }
+      auth: [],
+    };
   },
   created() {
-    this.$bus.$on('collapse', this.collapse);
+    this.$bus.$on("collapse", this.collapse);
   },
   mounted() {
-    console.log('this.$route', this.$router.options.routes);
-    this.$router.options.routes.forEach(item => {
+    localStorage.getItem("auth");
+    this.auth = JSON.parse(localStorage.getItem("auth"));
+    console.log("this.auth", this.auth);
+
+    // console.log(localStorage.getItem("auth"));
+    /* this.$router.options.routes.forEach((item) => {
       console.log(item);
       const { title, icon } = item.meta;
       this.routers.push({
@@ -71,44 +104,33 @@ export default {
         icon: icon,
         path: item.path,
         type: 1,
-        parent: '',
-        children: item.children
-      })
-      if (item.children && item.children.length > 0) {
-        item.children.forEach(item1 => {
-          this.menuItem.push({
-            title: item1.meta.title,
-            path: item1.path,
-            type: 2,
-            parent: '',
-            children: item1.children
-          })
-        })
-      }
-    })
-    console.log('routers', this.routers);
-    console.log('menuItem', this.menuItem);
+        parent: "",
+        children: item.children,
+      });
+    });
+    console.log("routers", this.routers);
+    console.log("menuItem", this.menuItem);
 
     if (this.$route) {
       const { title, icon } = this.$route.meta;
       this.title = title;
       this.icon = icon;
-    }
+    } */
   },
   beforeDestroy() {
-    this.$bus.$off('collapse', this.collapse);
+    this.$bus.$off("collapse", this.collapse);
   },
   computed: {
     routes() {
-      return this.$router.options.routes
+      return this.$router.options.routes;
     },
   },
   methods: {
     handleOpen(key, keyPath) {
-      console.log('打开折叠面板', key, keyPath);
+      console.log("打开折叠面板", key, keyPath);
     },
     handleClose(key, keyPath) {
-      console.log('关闭折叠面板', key, keyPath);
+      console.log("关闭折叠面板", key, keyPath);
     },
     // 打开侧边栏
     collapse(data) {
@@ -117,10 +139,10 @@ export default {
     // 点击侧边栏去往哪个页面
     navTo(path) {
       console.log(path, this, this.$router);
-      this.$router.push(path)
+      this.$router.push(path);
     },
   },
-}
+};
 </script>
 
 <style>
@@ -156,7 +178,6 @@ export default {
   background: rgba(255, 255, 255, 1) !important;
 }
 
-
 .el-menu-vertical-demo {
   height: 100vh;
   background-color: #304156;
@@ -181,7 +202,6 @@ export default {
   background-color: #263445 !important;
 }
 
-
 .el-submenu__title:hover {
   background-color: #263445 !important;
 }
@@ -193,13 +213,12 @@ export default {
 }
 
 .el-menu-item.is-active {
-  color: #409EFF !important;
+  color: #409eff !important;
 }
 
 .el-submenu {
   text-align: left;
 }
-
 
 .el-breadcrumb {
   height: 20px;

@@ -8,17 +8,16 @@
 
 <script>
 export default {
-  name: 'AppMain',
+  name: "AppMain",
   components: {},
   data() {
-    return {
-
-    }
+    return {};
   },
-  methods: {
-
+  mounted() {
+    console.log("this.$router.path", this.$route.path);
   },
-}
+  methods: {},
+};
 </script>
 
 <style scoped>
